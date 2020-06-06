@@ -1,6 +1,7 @@
 package searcher
 
 import (
+	"fmt"
 	"strings"
 
 	. "internal/data"
@@ -17,10 +18,12 @@ func FilterAny(*Entry) bool {
 }
 
 func FilterSeen(entry *Entry) bool {
+	fmt.Println(entry.Times_Opened)
 	return entry.Times_Opened > 0
 }
 
 func FilterUnseen(entry *Entry) bool {
+	fmt.Println(entry.Times_Opened)
 	return entry.Times_Opened == 0
 }
 

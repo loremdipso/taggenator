@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/loremdipso/go_utils"
+	"internal/go_utils"
 
 	"github.com/fatih/color"
 )
@@ -16,7 +16,8 @@ const (
 	rename_prefix = "rename:"
 )
 
-func (db *Database) PreProcessTag(tag string, entry *Entry) (string, bool) {
+// returns a replacement tag, whether we should keep the tag,
+func (db *Database) PreProcessTag(tag string, entry *Entry) (string, []string) {
 	if strings.HasPrefix(tag, rename_prefix) {
 		color.HiBlue("Renaming...")
 		err := db.RenameEntry(entry, tag[len(rename_prefix):])
@@ -24,46 +25,66 @@ func (db *Database) PreProcessTag(tag string, entry *Entry) (string, bool) {
 			// TODO: handle this better, maybe?
 			color.HiRed("%v", err)
 		}
-		return "", false
+		return "", nil
 	} else if tag == "tempnew" || tag == "newtemp" {
 		tags, err := db.GetAllTags()
 		if err != nil {
 			// TODO: handle better
 			color.HiRed("%v", err)
-			return "", false
+			return "", nil
 		}
 
-		return createNewTemp(tags), true
+		return createNewTemp(tags), nil
 	} else if tag == "temp" {
 		tags, err := db.GetAllTags()
 		if err != nil {
 			// TODO: handle better
 			color.HiRed("%v", err)
-			return "", false
+			return "", nil
 		}
 
-		return findNewestTemp(tags), true
+		return findNewestTemp(tags), nil
 	} else if tag == "u" || tag == "uns" {
 		entry.Times_Opened = 0
 		entry.HaveManuallyTouched = false
 		fmt.Println("Putting back on the to sort pile")
-		return "", false
+		return "", nil
 	} else {
-		return db.getReplacementTag(tag)
+		return db.getReplacementTag(tag, entry)
 	}
 }
 
-func (db *Database) getReplacementTag(tag string) (string, bool) {
+func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []string) {
 	if newTag, ok := db.settings.Synonyms[tag]; ok {
-		return newTag, true
+		return newTag, nil
 	}
 
 	if command, ok := db.settings.Commands[tag]; ok {
 		go_utils.ExecuteCommand(command, false)
-		return "", false
+		return "", nil
 	}
 
-	return tag, true
+	if command, ok := db.settings.Tagger[tag]; ok {
+		// actually execute and get the results back
+		// TODO: unsafe, but easy
+		if strings.Contains(command, "%s") {
+			command = fmt.Sprintf(command, entry.Location)
+		}
+		results, err := go_utils.ExecuteCommandAndGetResults(command)
+		if err != nil {
+			// TODO: handle better
+			return "", nil
+		}
+
+		autoTags := strings.Split(results, "\n")
+		if len(autoTags) > 0 {
+			fmt.Printf("Auto-adding these tags: %s\n", go_utils.StringArrayToString(autoTags))
+			return "", autoTags
+		}
+		return "", nil
+	}
+
+	return tag, nil
 }
 
 func createNewTemp(tags []string) string {

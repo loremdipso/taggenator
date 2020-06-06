@@ -53,7 +53,8 @@ func appendHelper(entry *data.Entry, tags_to_auto_add []string, sorted_tags []st
 }
 
 func getTokens(path string) []string {
-	bad_chars := []string{"_", "-", "/", ".", "\\"}
+	// TODO: slow and silly. Fix this
+	bad_chars := []string{"_", "-", "/", ".", "\\", "[", "]"}
 	for _, str := range bad_chars {
 		path = strings.ReplaceAll(path, str, " ")
 	}

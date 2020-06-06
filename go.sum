@@ -1,7 +1,13 @@
+github.com/cloudfoundry/bytefmt v0.0.0-20200131002437-cf55d5288a48 h1:PEwjDh+JW/7GFGLMaqnHwDWz55OpQGW8fqHqSLiTU4E=
+github.com/cloudfoundry/bytefmt v0.0.0-20200131002437-cf55d5288a48/go.mod h1:4oo6ExqTPaBVBwSm814h6UO5Fels1kN2KvpNscaCcS0=
 github.com/fatih/color v1.9.0 h1:8xPHl4/q1VyqGIPif1F+1V3Y3lSmrq01EabUW3CoW5s=
 github.com/fatih/color v1.9.0/go.mod h1:eQcE1qtQxscV5RaZvpXrrb8Drkc3/DdQ+uUYCNjL+zU=
 github.com/karrick/godirwalk v1.15.6 h1:Yf2mmR8TJy+8Fa0SuQVto5SYap6IF7lNVX4Jdl8G1qA=
 github.com/karrick/godirwalk v1.15.6/go.mod h1:j4mkqPuvaLI8mp1DroR3P6ad7cyYd4c1qeJ3RV7ULlk=
+github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 h1:Z9n2FFNUXsshfwJMBgNA0RU6/i7WVaAegv3PtuIHPMs=
+github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51/go.mod h1:CzGEWj7cYgsdH8dAjBGEr58BoE7ScuLd+fwFZ44+/x8=
+github.com/loremdipso/go_utils v0.0.0-20200606152152-50f58bc07000 h1:NyrukddyrbVqUhdUdRPel5SQ7zmSFwhmbdc2DBpvIFU=
+github.com/loremdipso/go_utils v0.0.0-20200606152152-50f58bc07000/go.mod h1:haYxby7k3zMRVw5Qw51rqBBfqeUHLFNBpurESKOM6lE=
 github.com/mattn/go-colorable v0.1.4 h1:snbPLB8fVfU9iwbbo30TPtbLRzwWu6aJS6Xh4eaaviA=
 github.com/mattn/go-colorable v0.1.4/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
 github.com/mattn/go-isatty v0.0.8/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=

@@ -9,7 +9,7 @@ printf "\ec"
 #./build.sh && cd test && time ../taggenator <<< ""
 #./build.sh && cd test && time ../taggenator dump_tags 
 cp ./test/data.db.old ./test/data.db
-./build.sh && cd test && time ../taggenator open search 0trimmed <<< ""
+./build.sh && cd test && time ../taggenator open <<< "test"
 #./build.sh && cd test && time ../taggenator dump
 #./build.sh && cd test && time ../taggenator dump search 7005 <<< ""
 

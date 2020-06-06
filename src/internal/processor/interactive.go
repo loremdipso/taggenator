@@ -135,7 +135,7 @@ func addTagStringToEntry(db *database.Database, entry *data.Entry, s_tags string
 		}
 	} else {
 		tags = stringToTags(s_tags)
-		preProcessTags(db, entry, tags)
+		tags = preProcessTags(db, entry, tags)
 	}
 
 	numAdded, numRemoved := addTagsToEntry(db, entry, tags, onTagAdd)
@@ -151,10 +151,13 @@ func stringToTags(s_tags string) []string {
 }
 
 func preProcessTags(db *database.Database, entry *data.Entry, tags []string) []string {
-	for i, tag := range tags {
+	originalTagLength := len(tags) // since we'll be appending to tags as we go along
+	//for i, tag := range tags {
+	for i := 0; i < originalTagLength; i++ {
+		tag := tags[i]
 		tag, shouldRemove := shouldRemoveTag(tag)
-		newTag, continueProcessing := db.PreProcessTag(tag, entry)
-		if continueProcessing {
+		newTag, extraTags := db.PreProcessTag(tag, entry)
+		if len(newTag) > 0 {
 			if shouldRemove {
 				tags[i] = newTag + "-"
 			} else {
@@ -162,6 +165,9 @@ func preProcessTags(db *database.Database, entry *data.Entry, tags []string) []s
 			}
 		} else {
 			tags[i] = "" // not very clever, but it'll do
+			if len(extraTags) > 0 {
+				tags = append(tags, extraTags...)
+			}
 		}
 	}
 	return tags

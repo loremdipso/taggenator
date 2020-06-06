@@ -14,6 +14,7 @@ type Settings struct {
 	Synonyms     map[string]string
 	Prefixes     []string
 	Commands     map[string]string
+	Tagger       map[string]string
 	OpenerConfig data.OpenerConfig
 }
 

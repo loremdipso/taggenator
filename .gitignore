@@ -17,5 +17,7 @@
 #
 test/
 
+src/internal/go_utils/
+
 taggenator
 ./taggenator
