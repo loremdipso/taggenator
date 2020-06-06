@@ -78,7 +78,7 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 
 		autoTags := strings.Split(results, "\n")
 		if len(autoTags) > 0 {
-			fmt.Printf("Auto-adding these tags: %s\n", go_utils.StringArrayToString(autoTags))
+			// fmt.Printf("Auto-adding these tags: %s\n", go_utils.StringArrayToString(autoTags))
 			return "", autoTags
 		}
 		return "", nil

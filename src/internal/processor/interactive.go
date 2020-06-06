@@ -174,7 +174,8 @@ func preProcessTags(db *database.Database, entry *data.Entry, tags []string) []s
 }
 
 func addTagsToEntry(db *database.Database, entry *data.Entry, tags []string, onTagAdd func(string) bool) (int, int) {
-	var numAdded, numRemoved int
+	added := make([]string, 0)
+	removed := make([]string, 0)
 
 	// NOTE: this is kind of slow, but it's
 	sort.Strings(entry.Tags)
@@ -184,17 +185,15 @@ func addTagsToEntry(db *database.Database, entry *data.Entry, tags []string, onT
 			newTag, shouldRemove := shouldRemoveTag(newTag)
 
 			if shouldRemove {
-				fmt.Println("Removing Tag: ", color.HiBlueString("%s", newTag))
 				didRemove, newArr := go_utils.RemoveStringArrayElementIfExists(entry.Tags, newTag)
 				if didRemove {
-					numRemoved++
+					removed = append(removed, newTag)
 					entry.Tags = newArr
 				}
 			} else {
-				fmt.Println("Adding Tag: ", color.HiBlueString("%s", newTag))
 				didAdd, newArr := go_utils.InsertIntoSortedListIfNotThereAlready(entry.Tags, newTag)
 				if didAdd {
-					numAdded++
+					added = append(added, newTag)
 					if onTagAdd != nil {
 						onTagAdd(newTag)
 					}
@@ -204,7 +203,14 @@ func addTagsToEntry(db *database.Database, entry *data.Entry, tags []string, onT
 		}
 	}
 
-	return numAdded, numRemoved
+	if len(added) > 0 {
+		fmt.Println("Adding Tags: ", color.HiBlueString("%s", go_utils.StringArrayToString(added)))
+	}
+	if len(removed) > 0 {
+		fmt.Println("Removing Tags: ", color.HiBlueString("%s", go_utils.StringArrayToString(removed)))
+	}
+
+	return len(added), len(removed)
 }
 
 func shouldRemoveTag(tag string) (string, bool) {
