@@ -10,6 +10,8 @@ printf "\ec"
 #./build.sh && cd test && time ../taggenator dump_tags 
 cp ./test/data.db.old ./test/data.db
 ./build.sh && cd test && time ../taggenator open <<< "test"
+#./build.sh && cd test && time ../taggenator apply_tags --tag silly <<< "test"
+#./build.sh && cd test && time ../taggenator apply_tags --tag silly <<< "test"
 #./build.sh && cd test && time ../taggenator dump
 #./build.sh && cd test && time ../taggenator dump search 7005 <<< ""
 

@@ -33,6 +33,7 @@ var Actions = []action_struct{
 	{"open", nil, open, description_struct{"", color.HiBlueString}},
 	{"open_read_only", nil, open_read_only, description_struct{"Open read only", color.HiBlueString}},
 	{"open_all", nil, open_all, description_struct{"Open all", color.HiBlueString}},
+	{"apply_tags", nil, apply_tags, description_struct{"Apply tags (--tag) to the search results", color.HiBlueString}},
 	{"move", nil, move, description_struct{"move results to -destination", color.HiBlueString}},
 	{"delete", nil, delete, description_struct{"delete results", color.HiBlueString}},
 	{"dump_tags", nil, dump_tags, description_struct{"Dump all tags", color.HiBlueString}},

@@ -16,7 +16,7 @@ func move(self *QueryProcessor, args []string, db *database.Database) error {
 
 	for i, arg := range args {
 		switch arg {
-		case "destination", "-destination", "--destination":
+		case "-destination", "--destination":
 			destination = args[i+1]
 
 			// TODO: a little messy, but we can handle it
