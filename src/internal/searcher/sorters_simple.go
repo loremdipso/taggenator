@@ -22,7 +22,7 @@ func SortLeastRecentlyOpened(entries Entries, i int, j int) bool {
 }
 
 func SortLargest(entries Entries, i int, j int) bool {
-	return entries[i].Size < entries[j].Size
+	return entries[i].Size > entries[j].Size
 }
 func SortSmallest(entries Entries, i int, j int) bool {
 	return !SortLargest(entries, i, j)
