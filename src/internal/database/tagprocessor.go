@@ -68,7 +68,7 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 		// actually execute and get the results back
 		// TODO: unsafe, but easy
 		if strings.Contains(command, "%s") {
-			command = fmt.Sprintf(command, entry.Location)
+			command = fmt.Sprintf(command, entry.Name)
 		}
 		results, err := go_utils.ExecuteCommandAndGetResults(command)
 		if err != nil {

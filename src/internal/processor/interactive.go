@@ -170,7 +170,7 @@ func preProcessTags(db *database.Database, entry *data.Entry, tags []string) []s
 			}
 		}
 	}
-	return tags
+	return go_utils.RemoveEmpty(tags)
 }
 
 func addTagsToEntry(db *database.Database, entry *data.Entry, tags []string, onTagAdd func(string) bool) (int, int) {
