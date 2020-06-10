@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"internal/data"
 	"internal/database"
+	"path/filepath"
 	"strings"
 
 	"github.com/loremdipso/go_utils"
 
 	"github.com/fatih/color"
+	combinations "github.com/mxschmitt/golang-combinations"
 )
 
 func addAutoTagsToEntry(db *database.Database, entry *data.Entry, getSortedTags func() []string, onTagAdd func(string) bool) []string {
@@ -54,18 +56,32 @@ func appendHelper(entry *data.Entry, tags_to_auto_add []string, sorted_tags []st
 
 func getTokens(path string) []string {
 	// TODO: slow and silly. Fix this
-	bad_chars := []string{"_", "-", "/", ".", "\\", "[", "]"}
-	for _, str := range bad_chars {
+	path = strings.TrimSuffix(path, filepath.Ext(path))
+	badChars := []string{"_", "-", "/", ".", "\\", "[", "]"}
+	for _, str := range badChars {
 		path = strings.ReplaceAll(path, str, " ")
 	}
 
-	silly_chars := []string{"'", "\""}
-	for _, str := range silly_chars {
+	sillyChars := []string{"'", "\""}
+	for _, str := range sillyChars {
 		path = strings.ReplaceAll(path, str, "")
 	}
 
 	// TODO: permutations
 	arr := strings.Split(path, " ")
 	arr = go_utils.RemoveEmpty(arr)
-	return arr
+	return append(arr, append(ngrams(arr, 2), ngrams(arr, 3)...)...)
+}
+
+func ngrams(arr []string, n int) []string {
+	/* how?
+	for each token
+	*/
+	raw := combinations.Combinations(arr, n)
+	result := make([]string, len(raw))
+	for i, set := range raw {
+		result[i] = strings.Join(set, " ")
+	}
+
+	return result
 }

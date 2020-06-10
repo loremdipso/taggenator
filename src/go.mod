@@ -33,6 +33,7 @@ require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/loremdipso/go_utils v0.0.0-20200606163401-979429af3913
 	github.com/loremdipso/liner v1.3.0 // indirect
+	github.com/mxschmitt/golang-combinations v1.0.1-0.20200408183628-1bfb410064a5 // indirect
 	github.com/robpike/filter v0.0.0-20150108201509-2984852a2183 // indirect
 	internal/opener v1.0.0
 )

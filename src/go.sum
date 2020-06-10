@@ -25,6 +25,10 @@ github.com/mattn/go-isatty v0.0.11 h1:FxPOTFNqGkuDUGi3H/qkUbQO4ZiBa2brKq5r0l8TGe
 github.com/mattn/go-isatty v0.0.11/go.mod h1:PhnuNfih5lzO57/f3n+odYbM4JtupLOxQOAqxQCu2WE=
 github.com/mattn/go-runewidth v0.0.3 h1:a+kO+98RDGEfo6asOGMmpodZq4FNtnGP54yps8BzLR4=
 github.com/mattn/go-runewidth v0.0.3/go.mod h1:LwmH8dsx7+W8Uxz3IHJYH5QSwggIsqBzpuz5H//U1FU=
+github.com/mxschmitt/golang-combinations v1.0.0 h1:NFoO7CSP8MUcFlHpe1YdewKwMa15dgDbaqkVLC5DUPI=
+github.com/mxschmitt/golang-combinations v1.0.0/go.mod h1:RbMhWvfCelHR6WROvT2bVfxJvZHoEvBj71SKe+H0MYU=
+github.com/mxschmitt/golang-combinations v1.0.1-0.20200408183628-1bfb410064a5 h1:2kVcrk4ZnDBIc9OWozumQMzEEfHfa3cdJv9/eDVRMNw=
+github.com/mxschmitt/golang-combinations v1.0.1-0.20200408183628-1bfb410064a5/go.mod h1:RbMhWvfCelHR6WROvT2bVfxJvZHoEvBj71SKe+H0MYU=
 github.com/nsf/termbox-go v0.0.0-20200418040025-38ba6e5628f1/go.mod h1:IuKpRQcYE1Tfu+oAQqaLisqDeXgjyyltCfsaoYN18NQ=
 github.com/robpike/filter v0.0.0-20150108201509-2984852a2183 h1:qDhD/wJDGyWrXKLIKmEKpKK/ejaZlguyeEaLZzmrtzo=
 github.com/robpike/filter v0.0.0-20150108201509-2984852a2183/go.mod h1:3dvYi47BCPInRb2ILlNnrXfl++XpwTWLbIxPyJsUvCw=
