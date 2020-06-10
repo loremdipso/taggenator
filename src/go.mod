@@ -32,11 +32,9 @@ require (
 require (
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
 	github.com/loremdipso/fancy_printer v0.0.0-20200605023349-e213bcb72bc1 // indirect
+	github.com/loremdipso/go_utils v0.0.0-20200606163401-979429af3913
 	github.com/loremdipso/liner v1.3.0 // indirect
-	internal/go_utils v0.0.0-00010101000000-000000000000 // indirect
 	internal/opener v1.0.0
 )
-
-replace internal/go_utils => ./internal/go_utils
 
 replace internal/opener => ./internal/opener

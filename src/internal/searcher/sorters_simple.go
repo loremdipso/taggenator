@@ -21,6 +21,14 @@ func SortLeastRecentlyOpened(entries Entries, i int, j int) bool {
 	return !SortMostRecentlyOpened(entries, i, j)
 }
 
+func SortMostFrequentlyOpened(entries Entries, i int, j int) bool {
+	return entries[i].Times_Opened > entries[j].Times_Opened
+}
+
+func SortLeastFrequentlyOpened(entries Entries, i int, j int) bool {
+	return entries[i].Times_Opened > entries[j].Times_Opened
+}
+
 func SortLargest(entries Entries, i int, j int) bool {
 	return entries[i].Size > entries[j].Size
 }

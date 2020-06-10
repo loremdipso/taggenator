@@ -84,6 +84,11 @@ func (s *Searcher) handleSortArgs(args []string) error {
 	case "least_recently_opened":
 		s.AppendSimpleSorter(SortLeastRecentlyOpened)
 
+	case "most_frequently_opened":
+		s.AppendSimpleSorter(SortMostFrequentlyOpened)
+	case "least_frequently_opened":
+		s.AppendSimpleSorter(SortLeastFrequentlyOpened)
+
 	// filters
 	case "seen":
 		s.AppendSimpleFilter(FilterSeen)

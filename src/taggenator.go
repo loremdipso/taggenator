@@ -72,7 +72,8 @@ func main() {
 
 	err = queryProcessor.ProcessQuery(os.Args[1:], db, PROJECT_NAME)
 	if err != nil {
-		log.Println(err)
+		//log.Println(err)
+		fmt.Printf("ERROR: %s\n", color.HiRedString("%v", err))
 		return
 	}
 

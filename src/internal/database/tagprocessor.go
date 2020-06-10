@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"internal/go_utils"
+	"github.com/loremdipso/go_utils"
 
 	"github.com/fatih/color"
 )
