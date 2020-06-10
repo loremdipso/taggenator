@@ -74,9 +74,6 @@ func getTokens(path string) []string {
 }
 
 func ngrams(arr []string, n int) []string {
-	/* how?
-	for each token
-	*/
 	raw := combinations.Combinations(arr, n)
 	result := make([]string, len(raw))
 	for i, set := range raw {
