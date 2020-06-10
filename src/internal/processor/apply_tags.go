@@ -6,12 +6,10 @@ import (
 	"internal/database"
 	"internal/searcher"
 	"strconv"
-	"strings"
 	"sync"
 
 	"github.com/fatih/color"
 	"github.com/loremdipso/go_utils"
-	"github.com/robpike/filter"
 )
 
 func apply_tags(self *QueryProcessor, args []string, db *database.Database) error {
@@ -46,9 +44,6 @@ func apply_tags(self *QueryProcessor, args []string, db *database.Database) erro
 	if len(tags) == 0 {
 		return errors.New("no tags to add")
 	} else {
-		tags = filter.Choose(tags, func(el string) bool {
-			return !strings.HasPrefix(el, "#")
-		}).([]string)
 		fmt.Printf("Tags to add: %s\n", go_utils.StringArrayToString(tags))
 	}
 

@@ -10,6 +10,7 @@ import (
 	"github.com/loremdipso/go_utils"
 
 	"github.com/fatih/color"
+	"github.com/robpike/filter"
 )
 
 const (
@@ -79,6 +80,10 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 		autoTags := strings.Split(results, "\n")
 		if len(autoTags) > 0 {
 			// fmt.Printf("Auto-adding these tags: %s\n", go_utils.StringArrayToString(autoTags))
+
+			autoTags = filter.Choose(autoTags, func(el string) bool {
+				return !strings.HasPrefix(el, "#")
+			}).([]string)
 			return "", autoTags
 		}
 		return "", nil
