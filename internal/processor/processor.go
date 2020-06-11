@@ -14,44 +14,44 @@ import (
 	"github.com/fatih/color"
 )
 
-//#region Actions
-type action_struct struct {
+type actionStruct struct {
 	name        string
 	synonyms    []string
 	compute     func(*QueryProcessor, []string, *database.Database) error
-	description description_struct
+	description descriptionStruct
 }
 
-type description_struct struct {
+type descriptionStruct struct {
 	text  string
 	color func(string, ...interface{}) string
 }
 
-var Actions = []action_struct{
-	{"?", nil, TODO, description_struct{"run interactive", color.HiBlueString}},
-	{"help", []string{"help", "?", "h", "-help", "-h"}, TODO, description_struct{"[action] get help", color.HiBlueString}},
-	{"open", nil, open, description_struct{"", color.HiBlueString}},
-	{"open_read_only", nil, open_read_only, description_struct{"Open read only", color.HiBlueString}},
-	{"open_all", nil, open_all, description_struct{"Open all", color.HiBlueString}},
-	{"apply_tags", nil, apply_tags, description_struct{"Apply tags (--tag) to the search results. Optionally can use --threads \"#\" to spawn extra workers", color.HiBlueString}},
-	{"move", nil, move, description_struct{"move results to -destination", color.HiBlueString}},
-	{"delete", nil, delete, description_struct{"delete results", color.HiBlueString}},
-	{"dump_tags", nil, dump_tags, description_struct{"Dump all tags", color.HiBlueString}},
-	{"dump", nil, dump, description_struct{"Dump paths to all entries", color.HiBlueString}},
-	{"fix", nil, fix, description_struct{"try and fix innacuracies in database", color.HiBlueString}},
+var actions = []actionStruct{
+	{"help", []string{"help", "?", "h", "-help", "-h"}, TODO, descriptionStruct{"[action] get help", color.HiBlueString}},
+	{"open", nil, open, descriptionStruct{"", color.HiBlueString}},
+	{"open_read_only", nil, open_read_only, descriptionStruct{"Open read only", color.HiBlueString}},
+	{"open_all", nil, open_all, descriptionStruct{"Open all", color.HiBlueString}},
+	{"apply_tags", nil, apply_tags, descriptionStruct{"Apply tags (--tag) to the search results. Optionally can use --threads \"#\" to spawn extra workers", color.HiBlueString}},
+	{"move", nil, move, descriptionStruct{"move results to -destination", color.HiYellowString}},
+	{"delete", nil, delete, descriptionStruct{"delete results", color.HiYellowString}},
+	{"dump_tags", nil, dump_tags, descriptionStruct{"Dump all tags", color.HiBlueString}},
+	{"dump", nil, dump, descriptionStruct{"Dump paths to all entries", color.HiBlueString}},
+	{"fix", nil, fix, descriptionStruct{"try and fix innacuracies in database", color.HiGreenString}},
 
-	{"combine", nil, absorb_old_database, description_struct{"[filename] Combine old database", color.HiBlueString}},
+	// TODO: remove
+	{"combine", nil, absorb_old_database, descriptionStruct{"[filename] Combine old database", color.HiBlueString}},
 }
 
-//#endregion Actions
 type QueryProcessor struct {
 	myOpener *opener.Opener
 }
 
+// New create a new opener
 func New() *QueryProcessor {
 	return &QueryProcessor{}
 }
 
+// Close closes the opener
 func (self *QueryProcessor) Close() {
 	if self.myOpener != nil {
 		self.myOpener.Close()
@@ -67,8 +67,8 @@ func (self *QueryProcessor) ProcessQuery(args []string, db *database.Database, p
 	case "-h", "help", "":
 		return help(args, projectName)
 	default:
-		var foundAction *action_struct
-		for _, action := range Actions {
+		var foundAction *actionStruct
+		for _, action := range actions {
 			if arg == action.name {
 				foundAction = &action
 				break
@@ -103,12 +103,12 @@ func help(args []string, projectName string) error {
 	if len(args) > 0 {
 		TODO(nil, nil, nil)
 	} else {
-		names := GetActionNames(Actions)
+		names := GetActionNames(actions)
 		prefixSpacing := 4
 		longestKey := go_utils.FindLongest(names) + prefixSpacing
 		color.HiGreen("%s %s\n", projectName, go_utils.Join(names, " | "))
 		for index, key := range names {
-			action := Actions[index]
+			action := actions[index]
 			fmt.Printf("%*s", longestKey, key)
 			fmt.Printf(": %s\n", action.description.color("%s", action.description.text))
 		}
@@ -117,7 +117,7 @@ func help(args []string, projectName string) error {
 	return nil
 }
 
-func GetActionNames(actions []action_struct) []string {
+func GetActionNames(actions []actionStruct) []string {
 	var names []string
 	for _, action := range actions {
 		names = append(names, action.name)

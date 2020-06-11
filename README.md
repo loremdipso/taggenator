@@ -32,6 +32,40 @@ You can define how you want files to be opened in taggenator_settings.json. Here
 	}
 ```
 
+
+Commands include:
+```
+? | help
+	displays help
+
+open
+
+open_read_only
+
+open_all
+
+apply_tags
+	Apply tags (--tag) to the search results. Optionally can use --threads "#" to spawn extra workers
+
+move
+	move results to -destination
+		ex. taggenator move -destination "/tmp"
+
+delete
+	delete results
+
+dump_tags
+	dump all tags from results
+
+dump
+	dump paths to all entries in results
+
+fix
+	try and fix innacuracies in database
+	will update filesize, for one
+```
+
+
 Filter options include:
 ```
 seen
@@ -61,6 +95,7 @@ tags_inclusive
 	do any of the tags of the file match the search term?
 ```
 
+
 Search options include:
 ```
 newest
@@ -83,7 +118,6 @@ reverse
 
 random
 ```
-
 
 # Sub-Modules Organization
 

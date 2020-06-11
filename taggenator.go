@@ -46,7 +46,20 @@ func setupSettings() bool {
 }
 
 func main() {
-	log.SetOutput(ioutil.Discard)
+
+	verbose := false
+	args := os.Args[1:]
+	for i, arg := range args {
+		// TODO: is this okay?
+		if arg == "-v" || arg == "--v" || arg == "--verbose" {
+			verbose = true
+			args = go_utils.RemoveStringArrayElement(args, i)
+		}
+	}
+
+	if !verbose {
+		log.SetOutput(ioutil.Discard)
+	}
 
 	if !setupSettings() {
 		return
@@ -98,7 +111,7 @@ func main() {
 
 	// }, "both :)", its)
 
-	err = queryProcessor.ProcessQuery(os.Args[1:], db, ProjectName)
+	err = queryProcessor.ProcessQuery(args, db, ProjectName)
 	if err != nil {
 		//log.Println(err)
 		fmt.Printf("ERROR: %s\n", color.HiRedString("%v", err))
@@ -179,28 +192,6 @@ func createFakeEntries(db *database.Database, numFake int) {
 	for i := 0; i < numFake; i++ {
 		db.UpdateEntry(&Entry{Name: fmt.Sprintf("Name B_%d", i), Tags: []string{"shouldmatch", "tag 2"}})
 	}
-}
-
-func searchTest(db *database.Database) {
-	// var _ Entry
-	// log.Println("searching...")
-	// temp, err := searcher.TestSearch(db)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
-	// log.Println("matches...", len(temp))
-
-	// for _, value := range temp {
-	// 	fmt.Println(value)
-	// }
-
-	// tmp := db.SimpleSearch(func(entry *database.Entry) bool {
-	// 	return true
-	// 	if entry.Name == "Name A" {
-	// 		return true
-	// 	}
-	// 	return false
-	// })
 }
 
 //#endregion helpers

@@ -15,8 +15,6 @@
 
 ## TODOs
 
-- This does not handle renaming files !!!
-
 - This doesn't handle multiple processes. Come up with something for that.
 	- Maybe make subsequent processes read-only, or do some sort of cool daemon and support some inter-process-communication?
 
