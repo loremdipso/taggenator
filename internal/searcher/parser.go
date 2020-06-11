@@ -113,7 +113,7 @@ func (s *Searcher) handleSortArgs(args []string) error {
 	case "path", "path_exclusive":
 		s.AppendSimpleFilter(FilterPathExclusive(remainder))
 
-	case "tags_exclusive":
+	case "tags", "tags_exclusive":
 		s.AppendSimpleFilter(FilterTagsExclusive(remainder))
 
 	case "tags_inclusive":

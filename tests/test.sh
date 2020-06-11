@@ -7,11 +7,12 @@ printf "\ec"
 #cp ./tmp/data.db.old ./tmp/data.db
 
 #./build.sh && cd tmp && time ../taggenator <<< ""
-#./build.sh && cd tmp && time ../taggenator dump_tags 
+#./build.sh && cd tmp && time ../taggenator dump_tags
 cp ./tmp/data.db.old ./tmp/data.db
 #./build.sh && cd tmp && time ../taggenator open <<< "tmp"
-./build.sh && cd tmp && time ../taggenator open unseen <<< "tmp"
-#./build.sh && cd tmp && time ../taggenator apply_tags --tag --threads 20 silly <<< "tmp"
+#./build.sh && cd tmp && time ../taggenator open unseen  <<< "tmp"
+#./build.sh && cd tmp && time ../taggenator help -v <<< "tmp"
+./build.sh && cd tmp && time ../taggenator apply_tags --tag --threads 20 silly <<< "tmp"
 #./build.sh && cd tmp && time ../taggenator apply_tags --tag silly <<< "tmp"
 #./build.sh && cd tmp && time ../taggenator apply_tags --tag silly <<< "tmp"
 #./build.sh && cd tmp && time ../taggenator dump
