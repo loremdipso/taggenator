@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -15,16 +16,43 @@ import (
 	"internal/processor"
 
 	"github.com/fatih/color"
+	"github.com/loremdipso/go_utils"
 )
 
-const PROJECT_NAME = "taggenator"
+// ProjectName name of the project, used in help output
+const ProjectName = "taggenator"
+
+// SettingsFilename name of the taggenator's settings
+const SettingsFilename = "taggenator_settings.json"
+
+//go:generate go run settings/include.go
 
 //var db *database.Database = nil
+
+func setupSettings() bool {
+	if !go_utils.FileExists(SettingsFilename) {
+		fmt.Printf("Settings file %s doesn't exist. Create it? (y/n)> ", SettingsFilename)
+		response := go_utils.GetString()
+		if len(response) > 0 && strings.ToLower(response)[0] == 'y' {
+			// TODO: handle errors here
+			out, _ := os.Create(SettingsFilename)
+			out.Write([]byte(TaggenatorSettings))
+		} else {
+			return false
+		}
+	}
+
+	return true
+}
 
 func main() {
 	log.SetOutput(ioutil.Discard)
 
-	db, err := database.New()
+	if !setupSettings() {
+		return
+	}
+
+	db, err := database.New(SettingsFilename)
 	if err != nil {
 		log.Printf("%v", err)
 		return
@@ -70,7 +98,7 @@ func main() {
 
 	// }, "both :)", its)
 
-	err = queryProcessor.ProcessQuery(os.Args[1:], db, PROJECT_NAME)
+	err = queryProcessor.ProcessQuery(os.Args[1:], db, ProjectName)
 	if err != nil {
 		//log.Println(err)
 		fmt.Printf("ERROR: %s\n", color.HiRedString("%v", err))

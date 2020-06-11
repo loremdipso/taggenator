@@ -2,7 +2,7 @@
 require 'fileutils'
 
 def main(args)
-	base = File.join("test", "test")
+	base = File.join("tmp", "test")
 	num_dirs = 1
 	num_files = 10000
 

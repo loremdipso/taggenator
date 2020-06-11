@@ -22,10 +22,10 @@ type Database struct {
 	isNew bool
 }
 
-func New() (*Database, error) {
+func New(settingsFilename string) (*Database, error) {
 	log.Println("initializing database...")
 
-	settings, err := getSettings(settings_filename)
+	settings, err := getSettings(settingsFilename)
 	if err != nil {
 		return nil, err
 	}

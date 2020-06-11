@@ -2,4 +2,4 @@
 
 #go build -o taggenator ./src
 #cd src && go build -o ../taggenator -mod=vendor
-cd src && go build -o ../taggenator .
+cd ../ && go build -o ./tests/taggenator .

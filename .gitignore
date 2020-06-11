@@ -15,9 +15,8 @@
 # vendor/
 #
 #
-test/
+tests/tmp/*
+tests/taggenator_settings.json
+tests/taggenator
 
 src/internal/go_utils/
-
-taggenator
-./taggenator
