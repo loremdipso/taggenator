@@ -27,7 +27,7 @@ func apply_tags(self *QueryProcessor, args []string, db *database.Database) erro
 			args[i] = ""
 			args[i+1] = ""
 			break
-		case "-threads", "--numthreads":
+		case "--threads", "--numthreads":
 			var err error
 			numThreads, err = strconv.Atoi(args[i+1])
 			if err != nil {

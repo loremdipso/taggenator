@@ -214,6 +214,10 @@ func addTagsToEntry(db *database.Database, entry *data.Entry, tags []string, onT
 }
 
 func shouldRemoveTag(tag string) (string, bool) {
+	if len(tag) == 0 {
+		return tag, false
+	}
+
 	if tag[len(tag)-1] == '-' {
 		tag = tag[:len(tag)-1]
 		return tag, true

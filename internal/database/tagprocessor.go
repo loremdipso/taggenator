@@ -18,6 +18,7 @@ const (
 )
 
 // returns a replacement tag, whether we should keep the tag,
+// TODO: make sure this returns a lowercase version of everything
 func (db *Database) PreProcessTag(tag string, entry *Entry) (string, []string) {
 	if strings.HasPrefix(tag, rename_prefix) {
 		color.HiBlue("Renaming...")
@@ -69,7 +70,7 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 		// actually execute and get the results back
 		// TODO: unsafe, but easy
 		if strings.Contains(command, "%s") {
-			command = fmt.Sprintf(command, entry.Name)
+			command = fmt.Sprintf(command, entry.Location)
 		}
 		results, err := go_utils.ExecuteCommandAndGetResults(command)
 		if err != nil {
@@ -77,7 +78,7 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 			return "", nil
 		}
 
-		autoTags := strings.Split(results, "\n")
+		autoTags := strings.Split(strings.ToLower(results), "\n")
 		if len(autoTags) > 0 {
 			// fmt.Printf("Auto-adding these tags: %s\n", go_utils.StringArrayToString(autoTags))
 
