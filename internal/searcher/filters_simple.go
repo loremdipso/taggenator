@@ -86,7 +86,7 @@ func FilterNameExclusive(tokens []string) SimpleFilterFunc {
 func FilterPathInclusive(tokens []string) SimpleFilterFunc {
 	return func(entry *Entry) bool {
 		for _, token := range tokens {
-			if containsSubstringHelper(entry.Location, token) {
+			if containsSubstringHelper(strings.ToLower(entry.Location), token) {
 				return true
 			}
 		}
@@ -97,7 +97,7 @@ func FilterPathInclusive(tokens []string) SimpleFilterFunc {
 func FilterPathExclusive(tokens []string) SimpleFilterFunc {
 	return func(entry *Entry) bool {
 		for _, token := range tokens {
-			if !containsSubstringHelper(entry.Location, token) {
+			if !containsSubstringHelper(strings.ToLower(entry.Location), token) {
 				return false
 			}
 		}
