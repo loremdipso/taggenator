@@ -2,6 +2,7 @@ package processor
 
 import (
 	"fmt"
+	"internal/data"
 	"internal/database"
 	"internal/searcher"
 	"io/ioutil"
@@ -13,9 +14,6 @@ import (
 )
 
 func open_all(self *QueryProcessor, args []string, db *database.Database) error {
-	// NOTE: this assumes vlc
-	// TODO: make more generic
-
 	search := searcher.New(db)
 	err := search.Parse(args)
 	if err != nil {
@@ -34,6 +32,27 @@ func open_all(self *QueryProcessor, args []string, db *database.Database) error 
 		color.HiBlue("Found %d entries", len(entries))
 	}
 
+	switch filepath.Ext(entries[0].Location) {
+	case ".jpg", ".png", ".jpeg":
+		return open_all_images(entries)
+	default:
+		return open_all_videos(entries)
+	}
+}
+
+func open_all_images(entries data.Entries) error {
+	// TODO: make generic. Assumes geeqie
+	var entryString = ""
+	for _, entry := range entries {
+		entryString += fmt.Sprintf(" \"%s\"", entry.Location)
+	}
+
+	go_utils.ExecuteCommand(fmt.Sprintf("geeqie -r %s", entryString), false)
+
+	return nil
+}
+
+func open_all_videos(entries data.Entries) error {
 	tempfile, err := ioutil.TempFile("/tmp", "taggy_")
 	defer tempfile.Close()
 	if err != nil {

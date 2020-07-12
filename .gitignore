@@ -15,6 +15,7 @@
 # vendor/
 #
 #
+taggenator
 tests/tmp/*
 tests/taggenator_settings.json
 tests/taggenator
