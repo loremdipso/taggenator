@@ -51,6 +51,12 @@ func (db *Database) PreProcessTag(tag string, entry *Entry) (string, []string) {
 		entry.HaveManuallyTouched = false
 		fmt.Println("Putting back on the to sort pile")
 		return "", nil
+	} else if tag == "reset" {
+		color.HiBlue("Resetting...")
+		entry.Tags = make([]string, 0)
+		entry.HaveManuallyTouched = false
+		entry.Times_Opened = 0
+		return "", nil
 	} else {
 		return db.getReplacementTag(tag, entry)
 	}
