@@ -34,13 +34,15 @@ func open_all(self *QueryProcessor, args []string, db *database.Database) error 
 
 	switch filepath.Ext(entries[0].Location) {
 	case ".jpg", ".png", ".jpeg":
-		return open_all_images(entries)
+		return openAllImages(entries)
+	case ".cbz":
+		return openAllComics(entries)
 	default:
-		return open_all_videos(entries)
+		return openAllVideos(entries)
 	}
 }
 
-func open_all_images(entries data.Entries) error {
+func openAllImages(entries data.Entries) error {
 	// TODO: make generic. Assumes geeqie
 	var entryString = ""
 	for _, entry := range entries {
@@ -52,7 +54,19 @@ func open_all_images(entries data.Entries) error {
 	return nil
 }
 
-func open_all_videos(entries data.Entries) error {
+func openAllComics(entries data.Entries) error {
+	// TODO: make generic. Assumes mcomix
+	var entryString = ""
+	for _, entry := range entries {
+		entryString += fmt.Sprintf(" \"%s\"", entry.Location)
+	}
+
+	go_utils.ExecuteCommand(fmt.Sprintf("mcomix %s", entryString), false)
+
+	return nil
+}
+
+func openAllVideos(entries data.Entries) error {
 	tempfile, err := ioutil.TempFile("/tmp", "taggy_")
 	defer tempfile.Close()
 	if err != nil {
