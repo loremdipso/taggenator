@@ -37,8 +37,10 @@ func open_all(self *QueryProcessor, args []string, db *database.Database) error 
 		return openAllImages(entries)
 	case ".cbz":
 		return openAllComics(entries)
-	default:
+	case ".mp4", ".wmv", ".avi", ".flv": // TODO: refactor
 		return openAllVideos(entries)
+	default:
+		return openAllGeneric(entries)
 	}
 }
 
@@ -62,6 +64,18 @@ func openAllComics(entries data.Entries) error {
 	}
 
 	go_utils.ExecuteCommand(fmt.Sprintf("mcomix %s", entryString), false)
+
+	return nil
+}
+
+func openAllGeneric(entries data.Entries) error {
+	// TODO: make generic. Assumes mcomix
+	var entryString = ""
+	for _, entry := range entries {
+		entryString += fmt.Sprintf(" \"%s\"", entry.Location)
+	}
+
+	go_utils.ExecuteCommand(fmt.Sprintf("gnome-open %s", entryString), false)
 
 	return nil
 }
