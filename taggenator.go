@@ -67,7 +67,7 @@ func main() {
 
 	db, err := database.New(SettingsFilename)
 	if err != nil {
-		log.Printf("%v", err)
+		fmt.Printf("Error opening: %v", err)
 		return
 	}
 
