@@ -63,8 +63,9 @@ func (db *Database) PreProcessTag(tag string, entry *Entry) (string, []string) {
 }
 
 func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []string) {
+	derivedTags := db.getDerivedTags(tag)
 	if newTag, ok := db.settings.Synonyms[tag]; ok {
-		return newTag, nil
+		return newTag, derivedTags
 	}
 
 	if command, ok := db.settings.Commands[tag]; ok {
@@ -96,7 +97,7 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 		return "", nil
 	}
 
-	return tag, db.getDerivedTags(tag)
+	return tag, derivedTags
 }
 
 func (db *Database) getDerivedTags(tag string) []string {
