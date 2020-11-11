@@ -13,6 +13,7 @@ type Settings struct {
 	Extensions   []string
 	Synonyms     map[string]string
 	Prefixes     []string
+	Derived      map[string][]string
 	Commands     map[string]string
 	Tagger       map[string]string
 	OpenerConfig data.OpenerConfig
@@ -53,4 +54,11 @@ func (db *Database) GetOpenerConfig() data.OpenerConfig {
 
 func (db *Database) GetPrefixes() []string {
 	return db.settings.Prefixes
+}
+
+func (db *Database) GetDerivedTags(tag string) []string {
+	if tags, ok := db.settings.Derived[tag]; ok {
+		return tags
+	}
+	return nil
 }

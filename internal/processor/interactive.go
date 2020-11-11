@@ -165,6 +165,9 @@ func preProcessTags(db *database.Database, entry *data.Entry, tags []string) []s
 			}
 		} else {
 			tags[i] = "" // not very clever, but it'll do
+		}
+
+		if extraTags != nil {
 			if len(extraTags) > 0 {
 				tags = append(tags, extraTags...)
 			}

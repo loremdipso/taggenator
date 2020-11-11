@@ -10,6 +10,9 @@
 		"getmore:"
 	],
 
+	"derived": {
+	},
+
 	"commands": {
 		"ls": "ls"
 	},

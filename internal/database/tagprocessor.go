@@ -96,7 +96,12 @@ func (db *Database) getReplacementTag(tag string, entry *Entry) (string, []strin
 		return "", nil
 	}
 
-	return tag, nil
+	return tag, db.getDerivedTags(tag)
+}
+
+func (db *Database) getDerivedTags(tag string) []string {
+	derived := db.GetDerivedTags(tag)
+	return derived // NOTE: may be null, but that's okay
 }
 
 func createNewTemp(tags []string) string {
