@@ -27,6 +27,16 @@ func addAutoTagsToEntry(db *database.Database, entry *data.Entry, getSortedTags 
 		tags_to_auto_add = appendHelper(entry, tags_to_auto_add, sorted_tags, tokens, prefix)
 	}
 
+	temp_tags := tags_to_auto_add
+	for _, tag := range temp_tags {
+		derived := db.GetDerivedTags(tag)
+		if derived != nil {
+			for _, derived_tag := range derived {
+				tags_to_auto_add = append(tags_to_auto_add, derived_tag)
+			}
+		}
+	}
+
 	if len(tags_to_auto_add) > 0 {
 		fmt.Printf("%s %s\n", color.HiYellowString("Auto Adding..."), go_utils.StringArrayToString(tags_to_auto_add))
 		addTagsToEntry(db, entry, tags_to_auto_add, onTagAdd)
